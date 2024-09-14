@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import AudioCapture from './components/AudioCapture';
 import TranslationDisplay from './components/TranslationDisplay';
-import ZoomIntegration from './components/ZoomIntegration';
+import ZoomIntegration from './components/';
 
 const App = () => {
   const [translation, setTranslation] = useState('');

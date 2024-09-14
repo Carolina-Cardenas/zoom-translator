@@ -22,21 +22,22 @@ const AudioCapture = ({ onTranslation }) => {
         audioRef.current = new MediaRecorder(stream);
         audioRef.current.start();
 
-        audioRef.current.addEventListener('dataavailable', event => {
-          console.log('Datos de audio capturados:', event.data);
-          socket.current.emit('audio', event.data);
-        });
+        audioRef.current.ondataavailable = event => {
+          if (event.data.size > 0) {
+            console.log('Datos de audio capturados:', event.data);
+            socket.current.emit('audio', event.data);
+          }
+        };
 
-        audioRef.current.addEventListener('error', (err) => {
+        audioRef.current.onerror = (err) => {
           console.error('Error en MediaRecorder:', err);
-        });
+        };
       })
       .catch(err => {
         console.error('Error al acceder al micrófono', err);
       });
 
     return () => {
-      // Detener la captura de audio y desconectar el socket cuando el componente se desmonte
       if (audioRef.current) {
         audioRef.current.stop();
         console.log('Captura de audio detenida');
@@ -53,4 +54,3 @@ const AudioCapture = ({ onTranslation }) => {
 };
 
 export default AudioCapture;
-

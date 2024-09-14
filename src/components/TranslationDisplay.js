@@ -11,3 +11,4 @@ const TranslationDisplay = ({ translation }) => {
 };
 
 export default TranslationDisplay;
+
